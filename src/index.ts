@@ -1,17 +1,27 @@
 import * as readline from "readline";
 
 class User {
+  public id: string;
   public name: string;
   public age: number;
   public job: string;
-  constructor(name: string, age: number, job: string) {
+
+  constructor(id: string, name: string, age: number, job: string) {
+    this.id = id;
     this.name = name;
     this.age = age;
     this.job = job;
   }
 }
 
-let user: User = { name: "", age: 0, job: "" };
+const createId = (name: string, age: number): string => {
+  const date = Math.round(new Date().getTime() / 1000);
+  const calcIdNum = date + age;
+  const id = name + calcIdNum;
+  return id;
+};
+
+let user: User = { id: "", name: "", age: 0, job: "" };
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -19,7 +29,8 @@ const rl = readline.createInterface({
 });
 
 const handleUser = () => {
-  console.log(user);
+  const id = createId(user.name, user.age);
+  console.log(id);
 };
 
 const askProfile = () => {
